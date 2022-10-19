@@ -84,7 +84,7 @@ def get_model(train_data_loader=None, n_epochs=10):
 
 # sample invocation torch.hub.load(myrepo,'get_model_advanced',train_data_loader=train_data_loader,n_epochs=5, force_reload=True)
 def get_model_advanced(train_data_loader=None, n_epochs=10,lr=1e-4,config=None):
-  model = cs19b005NN(config)
+  model = cs19b047NN(config)
   # batch_size = 64
   optimizer = torch.optim.SGD(model.parameters(), lr = lr)
   loss_fn = nn.CrossEntropyLoss()
