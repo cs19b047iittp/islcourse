@@ -6,6 +6,8 @@ import torch.optim as optim
 # You can import whatever standard packages are required
 from sklearn.datasets import make_circles
 from sklearn.datasets import make_blobs
+import sklearn.cluster as skl_cluster
+import matplotlib as plt
 
 # full sklearn, full pytorch, pandas, matplotlib, numpy are all available
 # Ideally you do not need to pip install any other packages!
@@ -15,7 +17,7 @@ from sklearn.datasets import make_blobs
 
 def get_data_blobs(n_points=100):
   SEED=47
-  X, y = make_blobs(n_points, random_state=SEED)
+  X, y = make_blobs(n_points, cluster_std=0.75, centers=4, random_state=SEED)
   return X,y
 
 def get_data_circles(n_points=100):
