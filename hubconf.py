@@ -14,6 +14,9 @@ import sklearn.datasets as skl_data
 from sklearn.metrics.cluster import homogeneity_score
 from sklearn.metrics.cluster import completeness_score
 from sklearn.metrics.cluster import v_measure_score
+from keras.datasets import mnist
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 import matplotlib as plt
 
 
@@ -28,11 +31,8 @@ def get_data_circles(n_points=100):
   return X,y
 
 def get_data_mnist():
-  pass
-  # write your code here
-  # Refer to sklearn data sets
-  X,y = None
-  # write your code ...
+  X,y = mnist.load_data()
+  print(X, y)
   return X,y
 
 def build_kmeans(X=None,k=10):
@@ -61,15 +61,15 @@ def build_lr_model(X=None, y=None):
   return lr_model
 
 def build_rf_model(X=None, y=None):
-  pass
-  rf_model = None
-  # write your code...
-  # Build Random Forest classifier, refer to sklearn
+  rf_model=RandomForestClassifier(n_estimators=100)
+  rf_model.fit(X,y)
   return rf_model
 
 def get_metrics(model=None,X=None,y=None):
-  pass
   # Obtain accuracy, precision, recall, f1score, auc score - refer to sklearn metrics
+  pred=model.predict(X)
+  classification_report(y_test, pred)
+  print(classification_report, classification_report[0])
   acc, prec, rec, f1, auc = 0,0,0,0,0
   # write your code here...
   return acc, prec, rec, f1, auc
