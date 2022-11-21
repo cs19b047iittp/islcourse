@@ -66,7 +66,7 @@ def get_metrics(model1=None,X=None,y=None):
   # Obtain accuracy, precision, recall, f1score, auc score - refer to sklearn metrics
   pred=model1.predict(X)
   acc=accuracy_score(y, pred)
-  precision,recall,fscore,support=score(y,y_pred,average='weighted')
+  precision,recall,fscore,support=score(y,pred,average='weighted')
   f_pr, t_pr, thresholds = metrics.roc_curve(y, pred, pos_label=2)
   auc=metrics.auc(f_pr, t_pr)
   # write your code here...
