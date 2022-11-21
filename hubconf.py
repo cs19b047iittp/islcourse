@@ -11,6 +11,9 @@ import torch.optim as optim
 
 import sklearn.cluster as skl_cluster
 import sklearn.datasets as skl_data
+from sklearn.metrics.cluster import homogeneity_score
+from sklearn.metrics.cluster import completeness_score
+from sklearn.metrics.cluster import v_measure_score
 import matplotlib as plt
 
 
@@ -43,9 +46,9 @@ def assign_kmeans(km=None,X=None):
   return ypred
 
 def compare_clusterings(ypred_1=None,ypred_2=None):
-  pass
-  # refer to sklearn documentation for homogeneity, completeness and vscore
-  h,c,v = 0,0,0 # you need to write your code to find proper values
+  h=homogeneity_score(ypred_1,ypred_2)
+  c=completeness_score(ypred_1,ypred_2)
+  v=v_measure_score(ypred_1,ypred_2)
   return h,c,v
 
 ###### PART 2 ######
