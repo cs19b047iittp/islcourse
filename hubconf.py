@@ -3,24 +3,16 @@ import torch
 from torch import nn
 import torch.optim as optim
 
-# You can import whatever standard packages are required
-
 # full sklearn, full pytorch, pandas, matplotlib, numpy are all available
 # Ideally you do not need to pip install any other packages!
 # Avoid pip install requirement on the evaluation program side, if you use above packages and sub-packages of them, then that is fine!
 
+###### PART 1 ######
 import sklearn.cluster as skl_cluster
 import sklearn.datasets as skl_data
 from sklearn.metrics.cluster import homogeneity_score
 from sklearn.metrics.cluster import completeness_score
 from sklearn.metrics.cluster import v_measure_score
-from sklearn.datasets import load_digits
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
-import matplotlib as plt
-
-
-###### PART 1 ######
 
 def get_data_blobs(n_points=100):
   X, y = skl_data.make_blobs(n_samples=n_points, cluster_std=0.8, centers=3, random_state=47)
@@ -52,6 +44,12 @@ def compare_clusterings(ypred_1=None,ypred_2=None):
 
 ###### PART 2 ######
 
+from sklearn.datasets import load_digits
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import precision_recall_fscore_support as score
+from sklearn.metrics import accuracy_score
+from sklearn import metrics
+
 def build_lr_model(X=None, y=None):
   pass
   lr_model = None
@@ -67,11 +65,12 @@ def build_rf_model(X=None, y=None):
 def get_metrics(model1=None,X=None,y=None):
   # Obtain accuracy, precision, recall, f1score, auc score - refer to sklearn metrics
   pred=model1.predict(X)
-  metrics=classification_report(y, pred)
-  print(metrics['acc'], metrics['prec'])
-  acc, prec, rec, f1, auc = 0,0,0,0,0
+  acc=accuracy_score(y, pred)
+  precision,recall,fscore,support=score(y,y_pred,average='weighted')
+  f_pr, t_pr, thresholds = metrics.roc_curve(y, pred, pos_label=2)
+  auc=metrics.auc(f_pr, t_pr)
   # write your code here...
-  return acc, prec, rec, f1, auc
+  return acc, precision, recall, fscore, auc
 
 def get_paramgrid_lr():
   # you need to return parameter grid dictionary for use in grid search cv
