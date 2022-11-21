@@ -14,7 +14,7 @@ import sklearn.datasets as skl_data
 from sklearn.metrics.cluster import homogeneity_score
 from sklearn.metrics.cluster import completeness_score
 from sklearn.metrics.cluster import v_measure_score
-from keras.datasets import mnist
+from sklearn.datasets import load_digits
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 import matplotlib as plt
@@ -31,7 +31,7 @@ def get_data_circles(n_points=100):
   return X,y
 
 def get_data_mnist():
-  X,y = mnist.load_data()
+  X,y = load_digits(return_X_y=True)
   return X,y
 
 def build_kmeans(X=None,k=10):
