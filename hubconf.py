@@ -39,7 +39,7 @@ def build_kmeans(X=None,k=10):
 
 def assign_kmeans(km=None,X=None):
   ypred = None
-  ypred = Km.predict(X)
+  ypred = km.predict(X)
   return ypred
 
 def compare_clusterings(ypred_1=None,ypred_2=None):
