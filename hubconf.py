@@ -67,7 +67,6 @@ def build_rf_model(X=None, y=None):
 def get_metrics(model1=None,X=None,y=None):
   # Obtain accuracy, precision, recall, f1score, auc score - refer to sklearn metrics
   pred=model1.predict(X)
-  print('Here', pred)
   classification_report(y, pred)
   print(classification_report, classification_report[0])
   acc, prec, rec, f1, auc = 0,0,0,0,0
