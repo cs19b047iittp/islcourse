@@ -47,7 +47,7 @@ def compare_clusterings(ypred_1=None,ypred_2=None):
 from sklearn.datasets import load_digits
 
 from sklearn.ensemble import RandomForestClassifier
-from sklear.linear_model import LogisticRegression
+from sklearn.linear_model import LogisticRegression
 
 from sklearn.metrics import precision_recall_fscore_support as score
 from sklearn.metrics import accuracy_score
