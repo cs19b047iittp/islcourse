@@ -102,7 +102,7 @@ def perform_gridsearch_cv_multimetric(model1=None, param_grid=None, cv=5, X=None
   # refer to sklearn documentation
   # the cv parameter can change, ie number of folds  
   
-  metrics = [‘accuracy’ : metrics.accuracy_score] #the evaluation program can change what metrics to choose
+  metrics = [‘accuracy’] #the evaluation program can change what metrics to choose
 
   grid_search_cv = GridSearchCV(model1, param_grid, cv = cv, scoring= metrics)
   # create a grid search cv object
