@@ -10,7 +10,6 @@ import torch.optim as optim
 # Avoid pip install requirement on the evaluation program side, if you use above packages and sub-packages of them, then that is fine!
 
 import sklearn.cluster as skl_cluster
-import sklearn.datasets.samples_generator as skl_smpl
 import sklearn.datasets as skl_data
 import matplotlib as plt
 
@@ -18,7 +17,7 @@ import matplotlib as plt
 ###### PART 1 ######
 
 def get_data_blobs(n_points=100):
-  X, y = skl_smpl.make_blobs(n_samples=n_points, cluster_std=0.75, centers=4, random_state=1)
+  X, y = skl_data.make_blobs(n_samples=n_points, cluster_std=0.75, centers=4, random_state=1)
   return X,y
 
 def get_data_circles(n_points=100):
