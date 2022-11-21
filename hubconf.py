@@ -44,6 +44,7 @@ def compare_clusterings(ypred_1=None,ypred_2=None):
 
 ###### PART 2 ######
 
+import numpy as np
 from sklearn.datasets import load_digits
 
 from sklearn.ensemble import RandomForestClassifier
