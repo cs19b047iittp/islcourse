@@ -20,11 +20,11 @@ import matplotlib as plt
 ###### PART 1 ######
 
 def get_data_blobs(n_points=100):
-  X, y = skl_data.make_blobs(n_samples=n_points, cluster_std=0.75, centers=4, random_state=1)
+  X, y = skl_data.make_blobs(n_samples=n_points, cluster_std=0.8, centers=3, random_state=47)
   return X,y
 
 def get_data_circles(n_points=100):
-  X, y = skl_data.make_circles(n_samples=n_points, noise=.01, random_state=0)
+  X, y = skl_data.make_circles(n_samples=n_points, noise=.07, random_state=47)
   return X,y
 
 def get_data_mnist():
