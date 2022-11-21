@@ -32,7 +32,6 @@ def get_data_circles(n_points=100):
 
 def get_data_mnist():
   X,y = mnist.load_data()
-  print(X, y)
   return X,y
 
 def build_kmeans(X=None,k=10):
@@ -65,9 +64,9 @@ def build_rf_model(X=None, y=None):
   rf_model.fit(X,y)
   return rf_model
 
-def get_metrics(model=None,X=None,y=None):
+def get_metrics(model1=None,X=None,y=None):
   # Obtain accuracy, precision, recall, f1score, auc score - refer to sklearn metrics
-  pred=model.predict(X)
+  pred=model1.predict(X)
   classification_report(y_test, pred)
   print(classification_report, classification_report[0])
   acc, prec, rec, f1, auc = 0,0,0,0,0
@@ -92,7 +91,7 @@ def get_paramgrid_rf():
   # write your code here...
   return rf_param_grid
 
-def perform_gridsearch_cv_multimetric(model=None, param_grid=None, cv=5, X=None, y=None, metrics=['accuracy','roc_auc']):
+def perform_gridsearch_cv_multimetric(model1=None, param_grid=None, cv=5, X=None, y=None, metrics=['accuracy','roc_auc']):
   
   # you need to invoke sklearn grid search cv function
   # refer to sklearn documentation
