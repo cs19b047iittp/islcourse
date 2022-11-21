@@ -1,130 +1,194 @@
+# kali
 import torch
-import torch.nn as nn
-import torchvision
-import torchvision.transforms as transforms
-import matplotlib.pyplot as plt
+from torch import nn
+import torch.optim as optim
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+# You can import whatever standard packages are required
 
-# Hyper-parameters 
-input_size = 784
-hidden_size = 512 
-num_classes = 10
-num_epochs = 2
-batch_size = 100
-learning_rate = 0.001
+# full sklearn, full pytorch, pandas, matplotlib, numpy are all available
+# Ideally you do not need to pip install any other packages!
+# Avoid pip install requirement on the evaluation program side, if you use above packages and sub-packages of them, then that is fine!
 
-# MNIST dataset 
-train_dataset = torchvision.datasets.MNIST(root='./data', 
-                                           train=True, 
-                                           transform=transforms.ToTensor(),  
-                                           download=True)
+###### PART 1 ######
 
-test_dataset = torchvision.datasets.MNIST(root='./data', 
-                                          train=False, 
-                                          transform=transforms.ToTensor())
+def get_data_blobs(n_points=100):
+  pass
+  # write your code here
+  # Refer to sklearn data sets
+  X, y = None
+  # write your code ...
+  return X,y
 
-# Data loader
-train_data_loader = torch.utils.data.DataLoader(dataset=train_dataset, 
-                                           batch_size=batch_size, 
-                                           shuffle=True)
+def get_data_circles(n_points=100):
+  pass
+  # write your code here
+  # Refer to sklearn data sets
+  X, y = None
+  # write your code ...
+  return X,y
 
-test_data_loader = torch.utils.data.DataLoader(dataset=test_dataset, 
-                                          batch_size=batch_size, 
-                                          shuffle=False)
+def get_data_mnist():
+  pass
+  # write your code here
+  # Refer to sklearn data sets
+  X,y = None
+  # write your code ...
+  return X,y
 
-examples = iter(test_loader)
-example_data, example_targets = examples.next()
+def build_kmeans(X=None,k=10):
+  pass
+  # k is a variable, calling function can give a different number
+  # Refer to sklearn KMeans method
+  km = None # this is the KMeans object
+  # write your code ...
+  return km
+
+def assign_kmeans(km=None,X=None):
+  pass
+  # For each of the points in X, assign one of the means
+  # refer to predict() function of the KMeans in sklearn
+  # write your code ...
+  ypred = None
+  return ypred
+
+def compare_clusterings(ypred_1=None,ypred_2=None):
+  pass
+  # refer to sklearn documentation for homogeneity, completeness and vscore
+  h,c,v = 0,0,0 # you need to write your code to find proper values
+  return h,c,v
+
+###### PART 2 ######
+
+def build_lr_model(X=None, y=None):
+  pass
+  lr_model = None
+  # write your code...
+  # Build logistic regression, refer to sklearn
+  return lr_model
+
+def build_rf_model(X=None, y=None):
+  pass
+  rf_model = None
+  # write your code...
+  # Build Random Forest classifier, refer to sklearn
+  return rf_model
+
+def get_metrics(model=None,X=None,y=None):
+  pass
+  # Obtain accuracy, precision, recall, f1score, auc score - refer to sklearn metrics
+  acc, prec, rec, f1, auc = 0,0,0,0,0
+  # write your code here...
+  return acc, prec, rec, f1, auc
+
+def get_paramgrid_lr():
+  # you need to return parameter grid dictionary for use in grid search cv
+  # penalty: l1 or l2
+  lr_param_grid = None
+  # refer to sklearn documentation on grid search and logistic regression
+  # write your code here...
+  return lr_param_grid
+
+def get_paramgrid_rf():
+  # you need to return parameter grid dictionary for use in grid search cv
+  # n_estimators: 1, 10, 100
+  # criterion: gini, entropy
+  # maximum depth: 1, 10, None  
+  rf_param_grid = None
+  # refer to sklearn documentation on grid search and random forest classifier
+  # write your code here...
+  return rf_param_grid
+
+def perform_gridsearch_cv_multimetric(model=None, param_grid=None, cv=5, X=None, y=None, metrics=['accuracy','roc_auc']):
   
-# Define a neural network YOUR ROLL NUMBER (all small letters) should prefix the classname
+  # you need to invoke sklearn grid search cv function
+  # refer to sklearn documentation
+  # the cv parameter can change, ie number of folds  
+  
+  # metrics = [] the evaluation program can change what metrics to choose
+  
+  grid_search_cv = None
+  # create a grid search cv object
+  # fit the object on X and y input above
+  # write your code here...
+  
+  # metric of choice will be asked here, refer to the-scoring-parameter-defining-model-evaluation-rules of sklearn documentation
+  
+  # refer to cv_results_ dictonary
+  # return top 1 score for each of the metrics given, in the order given in metrics=... list
+  
+  top1_scores = []
+  
+  return top1_scores
 
-class cs19b047NN(nn.Module):
-    def _init_(self, input_size, hidden_size, num_classes):
-        super(cs19b047NN, self)._init_()
-        self.input_size = input_size
-        self.l1 = nn.Linear(input_size, hidden_size) 
-        self.relu = nn.ReLU()
-        self.l2 = nn.Linear(hidden_size, num_classes)  
+###### PART 3 ######
+
+class MyNN(nn.Module):
+  def __init__(self,inp_dim=64,hid_dim=13,num_classes=10):
+    super(MyNN,self)
     
-    def forward(self, x):
-        out = self.l1(x)
-        out = self.relu(out)
-        out = self.l2(out)
-        return out
+    self.fc_encoder = None # write your code inp_dim to hid_dim mapper
+    self.fc_decoder = None # write your code hid_dim to inp_dim mapper
+    self.fc_classifier = None # write your code to map hid_dim to num_classes
     
-# sample invocation torch.hub.load(myrepo,'get_model',train_data_loader=train_data_loader,n_epochs=5, force_reload=True)
-def get_model(train_data_loader=None, n_epochs=10):
-  model = cs19b047NN(input_size, hidden_size, num_classes).to(device)
-  criterion = nn.CrossEntropyLoss()
-  optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)  
-  
-  n_total_steps = len(train_data_loader)
-  
-  for epoch in range(num_epochs):
-    for i, (images, labels) in enumerate(train_data_loader):  
-        images = images.reshape(-1, 28*28).to(device)
-        labels = labels.to(device)
-       
-        outputs = model(images)
-        loss = criterion(outputs, labels)
-        
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
-        
-        if (i+1) % 100 == 0:
-            print (f'Epoch [{epoch+1}/{num_epochs}], Step [{i+1}/{n_total_steps}], Loss: {loss.item():.4f}')
+    self.relu = None #write your code - relu object
+    self.softmax = None #write your code - softmax object
     
-  print ('Returning model... (rollnumber: cs19b047)')
-  return model
-
-
-            
-            
-
-# sample invocation torch.hub.load(myrepo,'get_model_advanced',train_data_loader=train_data_loader,n_epochs=5, force_reload=True)
-def get_model_advanced(train_data_loader=None, n_epochs=10,lr=1e-4,config=None):
-  model = cs19b047NN(config)
-  # batch_size = 64
-  optimizer = torch.optim.SGD(model.parameters(), lr = lr)
-  loss_fn = nn.CrossEntropyLoss()
-
-  for e in range(n_epochs):
-      model.train()
-      totalTrainLoss = 0
-      totalValLoss = 0
-      trainCorrect = 0
-      valCorrect = 0
-      for (x, y) in train_data_loader:
-          (x, y) = (x.to(device), y.to(device))
-          pred = model(x)
-          loss = loss_fn(pred, y)
-          optimizer.zero_grad()
-          loss.backward()
-          optimizer.step()
-          totalTrainLoss += loss
-          trainCorrect += (pred.argmax(1) == y).type(torch.float).sum().item()
-  print ('Returning model... (rollnumber: xx)')
-  return model
-
-# sample invocation torch.hub.load(myrepo,'test_model',model1=model,test_data_loader=test_data_loader,force_reload=True)
-def test_model(model1=None, test_data_loader=None):
-  accuracy_val, precision_val, recall_val, f1score_val = 0, 0, 0, 0
+  def forward(self,x):
+    x = None # write your code - flatten x
+    x_enc = self.fc_encoder(x)
+    x_enc = self.relu(x_enc)
+    
+    y_pred = self.fc_classifier(x_enc)
+    y_pred = self.softmax(y_pred)
+    
+    x_dec = self.fc_decoder(x_enc)
+    
+    return y_pred, x_dec
   
-  with torch.no_grad():
-    n_correct = 0
-    n_samples = 0
-    for images, labels in test_loader:
-        images = images.reshape(-1, 28*28).to(device)
-        labels = labels.to(device)
-        outputs = model(images)
-        # max returns (value ,index)
-        _, predicted = torch.max(outputs.data, 1)
-        n_samples += labels.size(0)
-        n_correct += (predicted == labels).sum().item()
+  # This a multi component loss function - lc1 for class prediction loss and lc2 for auto-encoding loss
+  def loss_fn(self,x,yground,y_pred,xencdec):
+    
+    # class prediction loss
+    # yground needs to be one hot encoded - write your code
+    lc1 = None # write your code for cross entropy between yground and y_pred, advised to use torch.mean()
+    
+    # auto encoding loss
+    lc2 = torch.mean((x - xencdec)**2)
+    
+    lval = lc1 + lc2
+    
+    return lval
+    
+def get_mynn(inp_dim=64,hid_dim=13,num_classes=10):
+  mynn = MyNN(inp_dim,hid_dim,num_classes)
+  mynn.double()
+  return mynn
 
-    accuracy_val= 100.0 * n_correct / n_samples
-   
+def get_mnist_tensor():
+  # download sklearn mnist
+  # convert to tensor
+  X, y = None, None
+  # write your code
+  return X,y
+
+def get_loss_on_single_point(mynn=None,x0,y0):
+  y_pred, xencdec = mynn(x0)
+  lossval = mynn.loss_fn(x0,y0,y_pred,xencdec)
+  # the lossval should have grad_fn attribute set
+  return lossval
+
+def train_combined_encdec_predictor(mynn=None,X,y, epochs=11):
+  # X, y are provided as tensor
+  # perform training on the entire data set (no batches etc.)
+  # for each epoch, update weights
   
-  print ('Returning metrics... (rollnumber: cs19b047)')
-  return accuracy_val, precision_val, recall_val, f1score_val
+  optimizer = optim.SGD(mynn.parameters(), lr=0.01)
+  
+  for i in range(epochs):
+    optimizer.zero_grad()
+    ypred, Xencdec = mynn(X)
+    lval = mynn.loss_fn(X,y,ypred,Xencdec)
+    lval.backward()
+    optimzer.step()
+    
+  return mynn
