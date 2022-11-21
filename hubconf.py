@@ -4,6 +4,8 @@ from torch import nn
 import torch.optim as optim
 
 # You can import whatever standard packages are required
+from sklearn.datasets import make_circles
+from sklearn.datasets import make_blobs
 
 # full sklearn, full pytorch, pandas, matplotlib, numpy are all available
 # Ideally you do not need to pip install any other packages!
@@ -12,20 +14,14 @@ import torch.optim as optim
 ###### PART 1 ######
 
 def get_data_blobs(n_points=100):
-  pass
-  # write your code here
-  # Refer to sklearn data sets
-  X, y = None
-  # write your code ...
+  SEED=47
+  X, y = make_blobs(n_points, random_state=SEED)
   return X,y
 
 def get_data_circles(n_points=100):
-  pass
-  # write your code here
-  # Refer to sklearn data sets
-  X, y = None
-  # write your code ...
-  return X,y
+  SEED=47
+  X_circles, y_circles = make_circles(n_points, noise=0.05, random_state=SEED)
+  return X_circles,y_circles
 
 def get_data_mnist():
   pass
