@@ -169,18 +169,18 @@ def get_mnist_tensor():
 #   # the lossval should have grad_fn attribute set
 #   return lossval
 
-def train_combined_encdec_predictor(mynn=None,X,y, epochs=11):
-  # X, y are provided as tensor
-  # perform training on the entire data set (no batches etc.)
-  # for each epoch, update weights
+# def train_combined_encdec_predictor(mynn=None,X,y, epochs=11):
+#   # X, y are provided as tensor
+#   # perform training on the entire data set (no batches etc.)
+#   # for each epoch, update weights
   
-  optimizer = optim.SGD(mynn.parameters(), lr=0.01)
+#   optimizer = optim.SGD(mynn.parameters(), lr=0.01)
   
-  for i in range(epochs):
-    optimizer.zero_grad()
-    ypred, Xencdec = mynn(X)
-    lval = mynn.loss_fn(X,y,ypred,Xencdec)
-    lval.backward()
-    optimzer.step()
+#   for i in range(epochs):
+#     optimizer.zero_grad()
+#     ypred, Xencdec = mynn(X)
+#     lval = mynn.loss_fn(X,y,ypred,Xencdec)
+#     lval.backward()
+#     optimzer.step()
     
-  return mynn
+#   return mynn
