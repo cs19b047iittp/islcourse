@@ -45,16 +45,17 @@ def compare_clusterings(ypred_1=None,ypred_2=None):
 ###### PART 2 ######
 
 from sklearn.datasets import load_digits
+
 from sklearn.ensemble import RandomForestClassifier
+from sklear.linear_model import LogisticRegression
+
 from sklearn.metrics import precision_recall_fscore_support as score
 from sklearn.metrics import accuracy_score
 from sklearn import metrics
 
 def build_lr_model(X=None, y=None):
-  pass
-  lr_model = None
-  # write your code...
-  # Build logistic regression, refer to sklearn
+  lr_model = LogisticRegression(solver = 'liblinear')
+  lr_model.fit(X,y)
   return lr_model
 
 def build_rf_model(X=None, y=None):
